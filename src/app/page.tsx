@@ -42,6 +42,8 @@ export default function Home() {
       username: username,
     };
     await set(messageRef, newMessage);
+    // sends a post request to the server for ai to process the question and persist the response
+
   }
   return (
     <div className="text-center py-4">
