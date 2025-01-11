@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 type Message = {
   text: string;
   userType: string;
-  timestamp: Date;
+  timestamp: string;
   username: string;
 };
 
@@ -24,7 +24,6 @@ export default function Home() {
       console.log(data);
       if (data) {
         setMessages(Object.values(data));
-        console.log(messages);
       }
     });
     return () => {
@@ -35,10 +34,11 @@ export default function Home() {
   const sendMessage = async (text: string) => {
     const newMessageRef = ref(db, `${username}_messages`)
     const messageRef = push(newMessageRef);
+    console.log("This is the message ref", messageRef.key);
     const newMessage = {
       text: text,
       userType: "user",
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       username: username,
     };
     await set(messageRef, newMessage);
